@@ -163,16 +163,16 @@ body.modal-open .pages{transform:scale(.945);filter:brightness(.93)}
   backface-visibility:hidden;
   display:none;
   max-height:94vh;flex-direction:column}
-.sheet.on{display:flex;animation:sheetIn .62s cubic-bezier(.32,.72,0,1)}
+.sheet.on{display:flex;animation:sheetIn .46s cubic-bezier(.32,.72,0,1)}
 @keyframes sheetIn{
   0%{opacity:0;transform:translateX(-50%) translateY(96px) scale(.94)}
   100%{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}
 }
 @keyframes sheetOut{
   0%{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}
-  100%{opacity:0;transform:translateX(-50%) translateY(96px) scale(.94)}
+  100%{opacity:0;transform:translateX(-50%) translateY(64px) scale(.965)}
 }
-.sheet.closing{display:flex;animation:sheetOut .34s cubic-bezier(.4,0,.6,1) forwards}
+.sheet.closing{display:flex;animation:sheetOut .24s cubic-bezier(.55,0,1,.45) forwards}
 .sheet-top{display:flex;align-items:center;justify-content:space-between;
   padding:14px 18px 10px;flex:0 0 auto;background:#f2f2f7;border-radius:22px 22px 0 0}
 .sheet-top .t{font-size:16px;font-weight:600}
@@ -2069,7 +2069,7 @@ function closeEditor(){
   if(sh){
     sh.classList.remove('on');
     sh.classList.add('closing');
-    setTimeout(function(){ sh.classList.remove('closing'); },340);
+    setTimeout(function(){ sh.classList.remove("closing"); },240);
   }
   document.body.classList.remove('modal-open');
   editingId=null;
