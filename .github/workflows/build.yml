@@ -7,18 +7,24 @@ on:
 
 jobs:
   build:
-    runs-on: macos-14
-    timeout-minutes: 30
+    # macos-13 = Intel x64；macos-14 会被解析成 arm64 机型，本账号无权限
+    runs-on: macos-13
+    timeout-minutes: 40
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Show Xcode version
-        run: xcodebuild -version
+      - name: Show environment
+        run: |
+          echo "Runner: $RUNNER_OS / $(uname -m)"
+          xcodebuild -version
+          sw_vers
 
       - name: Install xcodegen
-        run: brew install xcodegen
+        run: |
+          brew install xcodegen || brew upgrade xcodegen
+          xcodegen --version
 
       - name: Generate Xcode project
         run: xcodegen generate
@@ -35,8 +41,15 @@ jobs:
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO \
-            -quiet \
-            build
+            build 2>&1 | tee build.log
+
+      - name: Upload build log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: build.log
+          retention-days: 7
 
       - name: Package IPA
         run: |
