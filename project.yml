@@ -30,4 +30,4 @@ targets:
         ENABLE_BITCODE: "NO"
         SUPPORTS_MACCATALYST: "NO"
     info:
-      path: Resources/Info.plist
+      path: Info.plist
