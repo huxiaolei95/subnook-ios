@@ -170,9 +170,9 @@ body.modal-open .pages{transform:scale(.945);filter:brightness(.93)}
 }
 @keyframes sheetOut{
   0%{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}
-  100%{opacity:0;transform:translateX(-50%) translateY(64px) scale(.965)}
+  100%{opacity:0;transform:translateX(-50%) translateY(40px) scale(.97)}
 }
-.sheet.closing{display:flex;animation:sheetOut .24s cubic-bezier(.55,0,1,.45) forwards}
+.sheet.closing{display:flex;animation:sheetOut .22s cubic-bezier(.32,.72,0,1) forwards}
 .sheet-top{display:flex;align-items:center;justify-content:space-between;
   padding:14px 18px 10px;flex:0 0 auto;background:#f2f2f7;border-radius:22px 22px 0 0}
 .sheet-top .t{font-size:16px;font-weight:600}
@@ -2069,7 +2069,7 @@ function closeEditor(){
   if(sh){
     sh.classList.remove('on');
     sh.classList.add('closing');
-    setTimeout(function(){ sh.classList.remove("closing"); },240);
+    setTimeout(function(){ sh.classList.remove("closing"); },220);
   }
   document.body.classList.remove('modal-open');
   editingId=null;
