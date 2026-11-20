@@ -1,4 +1,4 @@
-﻿name: Subnook
+name: Subnook
 options:
   bundleIdPrefix: com.yg
   deploymentTarget:
@@ -19,8 +19,6 @@ targets:
     sources:
       - path: Sources
       - path: Resources
-        excludes:
-          - "Info.plist"
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.yg.subtracker
@@ -29,5 +27,4 @@ targets:
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ENABLE_BITCODE: "NO"
         SUPPORTS_MACCATALYST: "NO"
-    info:
-      path: Info.plist
+        INFOPLIST_FILE: "$(SRCROOT)/Info.plist"
