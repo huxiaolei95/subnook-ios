@@ -1,4 +1,5 @@
-import SwiftUI
+﻿import SwiftUI
+import UIKit
 import WebKit
 
 @main
@@ -32,7 +33,7 @@ struct WebShell: UIViewRepresentable {
 
         let web = WKWebView(frame: .zero, configuration: cfg)
         web.isOpaque = false
-        web.backgroundColor = .systemBackground
+        web.backgroundColor = UIColor(red: 0.949, green: 0.949, blue: 0.969, alpha: 1)
         web.scrollView.bounces = false
         web.scrollView.contentInsetAdjustmentBehavior = .never
         web.allowsBackForwardNavigationGestures = false
