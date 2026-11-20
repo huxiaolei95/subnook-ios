@@ -5,6 +5,9 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     # macos-13 已于 2025-09 关闭；macos-14 会解析成 arm64（本账号无权限）
@@ -65,9 +68,28 @@ jobs:
           zip -qry Subnook-unsigned.ipa Payload
           ls -lh Subnook-unsigned.ipa
 
-      - name: Upload IPA
+      - name: Upload IPA (artifact)
         uses: actions/upload-artifact@v4
         with:
           name: Subnook-unsigned-ipa
           path: Subnook-unsigned.ipa
           retention-days: 30
+
+      # Release 的下载走 github.com/.../releases/download/...，
+      # 不经过 objects.githubusercontent.com，代理环境下更稳
+      - name: Publish Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: Build ${{ github.run_number }}
+          body: |
+            自动构建产物（未签名）
+
+            提交：${{ github.sha }}
+            时间：${{ github.event.head_commit.timestamp }}
+          files: Subnook-unsigned.ipa
+          draft: false
+          prerelease: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
