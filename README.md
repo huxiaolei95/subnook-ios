@@ -1,4 +1,4 @@
-# 订阅记录 iOS 版
+﻿# 订阅一下 iOS 版
 
 一个 WKWebView 套壳的订阅管理器。界面是单文件 HTML，外层是 SwiftUI 容器。
 
@@ -69,8 +69,8 @@ App 沙盒/Documents/backup/        每天一份快照，保留 14 天
 
 **怎么看到这些文件**：
 
-- iPhone 上：用「文件」App → 我的 iPhone → 订阅记录
-- 电脑上：Finder/iTunes → 设备 → 文件共享 → 订阅记录
+- iPhone 上：用「文件」App → 我的 iPhone → 订阅一下
+- 电脑上：Finder/iTunes → 设备 → 文件共享 → 订阅一下
 
 （`Info.plist` 里开了 `UIFileSharingEnabled`，所以能看到）
 
@@ -102,4 +102,4 @@ App 沙盒/Documents/backup/        每天一份快照，保留 14 天
 
 - **没做过真机测试**。代码是按标准写法写的，但第一次编译大概率会有配置报错，需要看 Actions 日志调。
 - **图标是临时做的**（紫色 + ¥），要换直接替换 `AppIcon.appiconset/icon-1024.png`（1024×1024，不要自己画圆角）。
-- **App 名字**在 `project.yml` 里的 `CFBundleDisplayName`，现在是「订阅记录」。
+- **App 名字**在 `project.yml` 里的 `CFBundleDisplayName`，现在是「订阅一下」。
