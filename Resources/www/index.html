@@ -77,12 +77,11 @@ body.modal-open .pages{transform:scale(.945);filter:brightness(.93)}
 .swipe-del-btn{position:absolute;right:0;top:0;bottom:0;width:84px;border:0;z-index:1;
   background:#ff3b30;color:#fff;font-size:15px;font-weight:500;letter-spacing:.02em;
   border-radius:18px;
-  pointer-events:none;
-  transform:translateX(92px);
-  transition:transform .26s cubic-bezier(.32,.72,0,1)}
+  opacity:0;pointer-events:none;
+  transition:opacity 0s}
 .swipe-wrap>.item.swiped+.swipe-del-btn{
-  pointer-events:auto;
-  transform:translateX(0)}
+  opacity:1;pointer-events:auto;
+  transition:opacity .14s linear}
 .item{display:flex;align-items:center;gap:13px;background:var(--card);border-radius:18px;
   padding:13px 15px;margin-bottom:9px;position:relative;transition:transform .1s}
 .item:active{transform:scale(.985)}
