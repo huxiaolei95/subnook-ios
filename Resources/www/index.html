@@ -77,7 +77,7 @@ body.modal-open .pages{transform:scale(.945);filter:brightness(.93)}
 .swipe-wrap>.item.swiped{transform:translateX(-84px)}
 .swipe-del-btn{position:absolute;right:0;top:0;bottom:0;width:84px;border:0;z-index:1;
   background:#ff3b30;color:#fff;font-size:15px;font-weight:500;letter-spacing:.02em;
-  border-radius:inherit;
+  border-radius:0 18px 18px 0;
   opacity:0;pointer-events:none;
   transition:opacity .16s linear}
 .swipe-wrap>.item.swiped+.swipe-del-btn{opacity:1;pointer-events:auto}
@@ -2455,6 +2455,8 @@ function bind(){
       }
     }
     if(swMoved){
+      // 一旦确认是横滑，立刻锁死纵向滚动，避免边滑边滚
+      if(swWrap) swWrap.style.touchAction='none';
       var base=swEl.classList.contains('swiped')?-84:0;
       var tx=base+dx;
       if(tx>0) tx=0;
@@ -2483,6 +2485,7 @@ function bind(){
       el.addEventListener('click',blocker,true);
       setTimeout(function(){ el.removeEventListener('click',blocker,true); },300);
     }
+    if(swWrap) swWrap.style.touchAction='';
     swEl=null; swWrap=null; swMoved=false;
   },{passive:true});
 
