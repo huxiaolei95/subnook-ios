@@ -1,14 +1,21 @@
-import SwiftUI
+﻿import SwiftUI
 import UIKit
 import WebKit
 
 @main
 struct SubnookApp: App {
+    // 与 HTML 首屏、启动图统一的背景色
+    private let bg = Color(red: 0.949, green: 0.949, blue: 0.969)
+
     var body: some Scene {
         WindowGroup {
-            WebShell()
-                .ignoresSafeArea(edges: .all)
-                .preferredColorScheme(.light)
+            ZStack {
+                // 垫一层同色底：进入 App 切换器时被裁成圆角，圆角外侧不露白
+                bg.ignoresSafeArea()
+                WebShell()
+                    .ignoresSafeArea(edges: .all)
+            }
+            .preferredColorScheme(.light)
         }
     }
 }
