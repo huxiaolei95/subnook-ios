@@ -75,6 +75,7 @@ body.modal-open .pages{transform:scale(.945);filter:brightness(.93)}
 .swipe-wrap>.item.swiped{transform:translateX(-84px)}
 .swipe-del-btn{position:absolute;right:0;top:0;bottom:0;width:84px;border:0;z-index:1;
   background:#ff3b30;color:#fff;font-size:15px;font-weight:500;letter-spacing:.02em;
+  border-radius:0 18px 18px 0;
   pointer-events:none}
 .swipe-wrap>.item.swiped+.swipe-del-btn{pointer-events:auto}
 .item{display:flex;align-items:center;gap:13px;background:var(--card);border-radius:18px;
@@ -2441,8 +2442,15 @@ function bind(){
     if(!swEl) return;
     var dx=e.touches[0].clientX-swX, dy=e.touches[0].clientY-swY;
     if(!swMoved){
-      if(Math.abs(dx)>8 && Math.abs(dx)>Math.abs(dy)*1.4){ swMoved=true; closeSwipes(swWrap); }
-      else if(Math.abs(dy)>10){ swEl=null; return; }
+      // 必须先明确是横向（位移够大 + 明显大于纵向 2.2 倍）
+      if(Math.abs(dx)>14 && Math.abs(dx)>Math.abs(dy)*2.2){
+        swMoved=true; closeSwipes(swWrap);
+      } else if(Math.abs(dy)>6){
+        // 有一点纵向倾向就立刻放弃，把滚动还给页面
+        swEl=null; swWrap=null; return;
+      } else {
+        return;   // 位移太小，先不动，继续观察
+      }
     }
     if(swMoved){
       e.preventDefault();
