@@ -39,11 +39,27 @@ struct WebShell: UIViewRepresentable {
         cfg.userContentController.addUserScript(boot)
 
         let web = WKWebView(frame: .zero, configuration: cfg)
-        web.isOpaque = false
+        // isOpaque = true：让 WebView 自己画不透明底色，
+        // 否则合成层透明，App 切换器裁剪时会透出 window 白底
+        web.isOpaque = true
         web.backgroundColor = UIColor(red: 0.949, green: 0.949, blue: 0.969, alpha: 1)
         web.scrollView.bounces = false
+        web.scrollView.backgroundColor = UIColor(red: 0.949, green: 0.949, blue: 0.969, alpha: 1)
         web.scrollView.contentInsetAdjustmentBehavior = .never
         web.allowsBackForwardNavigationGestures = false
+
+        // 直接改 window 的背景：App 切换器卡片圆角外露的是 window backgroundColor，
+        // 不是 SwiftUI 的内容层，所以 ZStack 垫底无效
+        DispatchQueue.main.async {
+            let bg = UIColor(red: 0.949, green: 0.949, blue: 0.969, alpha: 1)
+            web.window?.backgroundColor = bg
+            web.window?.rootViewController?.view.backgroundColor = bg
+            // window 可能还没挂上，再补一次
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                web.window?.backgroundColor = bg
+                web.window?.rootViewController?.view.backgroundColor = bg
+            }
+        }
 
         // 关键：没有这行，JS 的 confirm()/alert() 一律静默返回 false
         web.uiDelegate = context.coordinator
