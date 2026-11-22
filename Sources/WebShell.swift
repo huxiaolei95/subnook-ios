@@ -70,7 +70,12 @@ struct WebShell: UIViewRepresentable {
         return web
     }
 
-    func updateUIView(_ uiView: WKWebView, context: Context) {}
+    func updateUIView(_ uiView: WKWebView, context: Context) {
+        // 此时 view 一定已挂到 window 上，背景色设置才可靠
+        let bg = UIColor(red: 0.949, green: 0.949, blue: 0.969, alpha: 1)
+        uiView.window?.backgroundColor = bg
+        uiView.window?.rootViewController?.view.backgroundColor = bg
+    }
 
     final class Coordinator: NSObject, WKUIDelegate {
         var bridge: StoreBridge?
